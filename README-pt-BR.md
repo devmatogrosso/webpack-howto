@@ -150,9 +150,9 @@ module.exports = {
 };
 ```
 
-## 6. Feature flags
+## 6. Funcionalidades de flags
 
-We have code we want to gate only to our dev environments (like logging) and our internal dogfooding servers (like unreleased features we're testing with employees). In your code, refer to magic globals:
+Nós tempos códigos que queremos abrir somente para nosso ambiente de desenvolvimento (como logging) e nossos próprios servidores internos (como funcionalidades não-oficiais que estamos testando com os colaboradores). No nosso código, referimos para globais mágicas:
 
 ```js
 if (__DEV__) {
@@ -164,12 +164,12 @@ if (__PRERELEASE__) {
 }
 ```
 
-Then teach webpack those magic globals:
+Então mostre para o webpack essas globais mágicas:
 
 ```js
 // webpack.config.js
 
-// definePlugin takes raw strings and inserts them, so you can put strings of JS if you want.
+// definePlugin aceita strings puras e insere elas. Então, você pode colocar strings do JS se quiser.
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
   __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false'))
@@ -184,11 +184,11 @@ module.exports = {
 };
 ```
 
-Then you can build with `BUILD_DEV=1 BUILD_PRERELEASE=1 webpack` from the console. Note that since `webpack -p` runs uglify dead-code elimination, anything wrapped in one of these blocks will be stripped out, so you won't leak secret features or strings.
+Agora você pode fazer o build com `BUILD_DEV=1 BUILD_PRERELEASE=1 webpack` pelo terminal. Lembre-se de que `webpack -p` executa obfuscação de eliminação de código-morto, qualquer coisa dentro destes blocos serão removidos, então você não terá suas strings ou funcionalidades secretas reveladas.
 
-## 7. Multiple entrypoints
+## 7. Múltiplos pontos de entrada
 
-Let's say you have a profile page and a feed page. You don't want to make the user download the code for the feed if they just want the profile. So make multiple bundles: create one "main module" (called an entrypoint) per page:
+Vamos dizer que você tem uma página de perfil e uma página de feed. Você não quer fazer o usuário baixar o código para a página de feed se ele só quer a página de perfil. Então faça múltiplos pacotes: crie um "módulo principal" (chamado como ponto de entrada) por página:
 
 ```js
 // webpack.config.js
@@ -199,12 +199,12 @@ module.exports = {
   },
   output: {
     path: 'build',
-    filename: '[name].js' // Template based on keys in entry above
+    filename: '[name].js' // Template baseado nas chaves de entrada acima
   }
 };
 ```
 
-For profile, insert `<script src="build/Profile.js"></script>` into your page. Do a similar thing for feed.
+Para o perfil, insira `<script src="build/Profile.js"></script>` na página. Siga o mesmo raciocínio para a página de feed.
 
 ## 8. Optimizing common code
 
