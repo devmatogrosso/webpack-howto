@@ -150,9 +150,9 @@ module.exports = {
 };
 ```
 
-## 6. Feature flags
+## 6. Funcionalidades de flags
 
-We have code we want to gate only to our dev environments (like logging) and our internal dogfooding servers (like unreleased features we're testing with employees). In your code, refer to magic globals:
+Nós tempos códigos que queremos abrir somente para nosso ambiente de desenvolvimento (como logging) e nossos próprios servidores internos (como funcionalidades não-oficiais que estamos testando com os colaboradores). No nosso código, referimos para globais mágicas:
 
 ```js
 if (__DEV__) {
@@ -164,12 +164,12 @@ if (__PRERELEASE__) {
 }
 ```
 
-Then teach webpack those magic globals:
+Então mostre para o webpack essas globais mágicas:
 
 ```js
 // webpack.config.js
 
-// definePlugin takes raw strings and inserts them, so you can put strings of JS if you want.
+// definePlugin aceita strings puras e insere elas. Então, você pode colocar strings do JS se quiser.
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
   __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false'))
@@ -184,7 +184,7 @@ module.exports = {
 };
 ```
 
-Then you can build with `BUILD_DEV=1 BUILD_PRERELEASE=1 webpack` from the console. Note that since `webpack -p` runs uglify dead-code elimination, anything wrapped in one of these blocks will be stripped out, so you won't leak secret features or strings.
+Agora você pode fazer o build com `BUILD_DEV=1 BUILD_PRERELEASE=1 webpack` pelo terminal. Lembre-se de que `webpack -p` executa obfuscação de eliminação de código-morto, qualquer coisa dentro destes blocos serão removidos, então você não terá suas strings ou funcionalidades secretas reveladas.
 
 ## 7. Multiple entrypoints
 
