@@ -186,9 +186,9 @@ module.exports = {
 
 Agora você pode fazer o build com `BUILD_DEV=1 BUILD_PRERELEASE=1 webpack` pelo terminal. Lembre-se de que `webpack -p` executa obfuscação de eliminação de código-morto, qualquer coisa dentro destes blocos serão removidos, então você não terá suas strings ou funcionalidades secretas reveladas.
 
-## 7. Multiple entrypoints
+## 7. Múltiplos pontos de entrada
 
-Let's say you have a profile page and a feed page. You don't want to make the user download the code for the feed if they just want the profile. So make multiple bundles: create one "main module" (called an entrypoint) per page:
+Vamos dizer que você tem uma página de perfil e uma página de feed. Você não quer fazer o usuário baixar o código para a página de feed se ele só quer a página de perfil. Então faça múltiplos pacotes: crie um "módulo principal" (chamado como ponto de entrada) por página:
 
 ```js
 // webpack.config.js
@@ -199,12 +199,12 @@ module.exports = {
   },
   output: {
     path: 'build',
-    filename: '[name].js' // Template based on keys in entry above
+    filename: '[name].js' // Template baseado nas chaves de entrada acima
   }
 };
 ```
 
-For profile, insert `<script src="build/Profile.js"></script>` into your page. Do a similar thing for feed.
+Para o perfil, insira `<script src="build/Profile.js"></script>` na página. Siga o mesmo raciocínio para a página de feed.
 
 ## 8. Optimizing common code
 
