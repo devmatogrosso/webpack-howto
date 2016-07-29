@@ -12,14 +12,14 @@ Meu conselho: comece com este guia como se fosse a documentação do webpack, e 
   * Ver o valor de:
     * Divisão de pacotes
     * Carregamento Assícrono
-    * Empacotamento de recursos estáticos, como imagens e CSS
+    * Empacotamento de recursos estáticos como imagens e CSS
 
 ## 1. Por que webpack?
 
 
-  * **É como browserify** mas pode dividir sua aplicação em múltiplos arquivos. Se você tem múltiplas páginas na sua single-page application, o usuário baixa o código apenas para aquela página. Se ele vai para outra página, ele não irá baixar novamente código em comum.
+  * **É como browserify** mas pode dividir sua aplicação em vários arquivos. Se você tem várias páginas em sua aplicação SPA (Single Page App), o usuário baixa o código apenas para aquela página. Se ele vai para outra página, ele não irá baixar novamente código em comum.
 
-  * **Frequentemente substitui grunt ou gulp** pois pode buildar e empacotar CSS, CSS pré-processado, linguagens que compilam para JS e imagens, entre outras coisas.
+  * **Frequentemente substitui grunt ou gulp** porque pode gerar e empacotar CSS, CSS pré-processado, linguagens que compilam para JS e imagens, entre outras coisas.
 
 Suporta AMD e CommonJS, entre outros sistemas modulares (Angular, ES6). Se você não sabe o que usar, use CommonJS.
 
@@ -49,18 +49,18 @@ module.exports = {
 
 Isso é só JS, então sinta-se livre pra colocar código de verdade lá.
 
-## 3. Como invocar webpack
+## 3. Como executar o webpack
 
 Mude para o diretório contendo `webpack.config.js` e execute:
 
-  * `webpack` pra buildar uma vez para o desenvolvimento
-  * `webpack -p` pra buildar uma vez para produção (minificação)
-  * `webpack --watch` pra buildar continuamente de forma incremental no desenvolvimento (rápido!)
+  * `webpack` pra construir uma vez para o desenvolvimento
+  * `webpack -p` pra construir uma vez para produção (minificação)
+  * `webpack --watch` pra construir continuamente de forma incremental no desenvolvimento (rápido!)
   * `webpack -d` para incluir source maps
 
 ## 4. Linguagens que compilam para JS
 
-O equivalente do webpack para os plugins transform e RequireJS do browserify é um **loader**. Aqui está como você pode ensinar webpack a carregar o suporte para CoffeeScript e Facebook JSX+ES6 (execute `npm install babel-loader coffee-loader`):
+O equivalente do webpack para as transformações do browserify e plugins do RequireJS é um **carregador (loader)**. Aqui está como você pode ensinar o webpack a carregar o suporte para o CoffeeScript e Facebook JSX+ES6 (você deve executar `npm install babel-loader coffee-loader`):
 
 Veja também [instruções de instalação do babel-loader](https://www.npmjs.com/package/babel-loader) para dependências adicionais (tl;dr execute `npm install babel-core babel-preset-es2015 babel-preset-react`).
 
@@ -86,7 +86,7 @@ module.exports = {
 };
 ```
 
-Para habilitar requisição de arquivos sem especificar a extensão, você deve adicionar um parâmetro `resolve.extensions` especificando quais arquivos o webpack deve procurar:
+Para habilitar exigindo arquivos sem especificar a extensão, você deve adicionar um parâmetro `resolve.extensions` especificando quais arquivos o webpack deve procurar:
 
 ```js
 // webpack.config.js
@@ -109,7 +109,7 @@ module.exports = {
   },
   resolve: {
     // agora você pode usar require('file') ao invés de require('file.coffee')
-    extensions: ['', '.js', '.json', '.coffee'] 
+    extensions: ['', '.js', '.json', '.coffee']
   }
 };
 ```
@@ -270,12 +270,10 @@ output: {
 ## Recursos Adicionais
 
 Dê uma olhada em um exemplo real de como uma equipe bem sucedida está alavancando o webpack: http://youtu.be/VkTCL6Nqm6Y
-Este é pete Hunt na OSCon falando sobre o uso de webpack no Instagram.com
+Este é Pete Hunt na OSCon falando sobre o uso de webpack no Instagram.com
 
 ## FAQ
 
 ### webpack não parece modular
 
-webpack é **extremamente** modular. O que faz o webpack excelente é que ele deixa plugins se injetarem em mais lugares no processo de build quando comparado à alternativas como browserify e requirejs. Muitas coisas que podem parecer nativas são apenas plugins que são carregados por padrão e podem ser sobrecarregados (ex: o parser require() do CommonJS).
-
-
+webpack é **extremamente** modular. O que faz o webpack excelente é que ele deixa plugins se injetarem em mais lugares no processo de construção quando comparado à alternativas como browserify e requirejs. Muitas coisas que podem parecer incorporadas ao `core` são apenas plugins que são carregados por padrão e podem ser sobrescritos (ex: o parser require() do CommonJS).
