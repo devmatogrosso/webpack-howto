@@ -115,9 +115,9 @@ module.exports = {
 ```
 
 
-## 5. Stylesheets and images
+## 5. Folhas de estilos e imagens
 
-First update your code to `require()` your static assets (named as they would with node's `require()`):
+Primeiro atualize o seu código para importar seus arquivos estáticos usando `require()` (nomeando como é feito com o `require()` do Node):
 
 ```js
 require('./bootstrap.css');
@@ -127,24 +127,24 @@ var img = document.createElement('img');
 img.src = require('./glyph.png');
 ```
 
-When you require CSS (or less, etc), webpack inlines the CSS as a string inside the JS bundle and `require()` will insert a `<style>` tag into the page. When you require images, webpack inlines a URL to the image into the bundle and returns it from `require()`.
+Quando você importa um CSS (ou less, etc), o webpack coloca o CSS como uma string em linha, dentro do pacote Javascript e a função `require()` irá inserir uma tag `<style>` na página. Quando você importar imagens, o webpack vai colocar em linha a URL para a imagem dentro do pacote e retornando a URL ao chamar a função `require()`.
 
-But you need to teach webpack to do this (again, with loaders):
+Mas você precisa ensinar o webpack a fazer isso (novamente, com **carregadores(loaders)**):
 
 ```js
 // webpack.config.js
 module.exports = {
   entry: './main.js',
   output: {
-    path: './build', // This is where images AND js will go
-    publicPath: 'http://mycdn.com/', // This is used to generate URLs to e.g. images
+    path: './build', // Isso é onde as imagens e o javascript vão
+    publicPath: 'http://mycdn.com/', // Isso é utilizado para gerar URLs para, por ex. imagens
     filename: 'bundle.js'
   },
   module: {
     loaders: [
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! to chain loaders
+      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! para encadear carregadores(loaders)
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' } // inline base64 URLs for <=8k images, direct URLs for the rest
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' } // coloca em linha a URLs em formato base64 para imagens <= 8k, coloca URLs diretas para o resto
     ]
   }
 };
